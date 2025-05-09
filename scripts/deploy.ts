@@ -3,8 +3,8 @@ import { makeAbi } from './abiGenerator';
 
 async function main() {
   const contractName = 'MyNFT';
-  const name = ''; // Todo: NFT의 이름
-  const symbol = ''; // Todo: NFT의 Symbol
+  const name = 'JaeNFT'; // Todo: NFT의 이름
+  const symbol = 'JAE'; // Todo: NFT의 Symbol
 
   if (!name || !symbol) {
     throw new Error('Todo: (scripts/deploy.ts) name or symbol is empty');
@@ -13,7 +13,7 @@ async function main() {
   console.log(`Deploying contracts`);
 
   const Contract = await ethers.getContractFactory(contractName);
-  const contract = await Contract.deploy(name, symbol);
+  const contract = await Contract.deploy();
 
   await contract.waitForDeployment();
 

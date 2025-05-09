@@ -2,14 +2,14 @@ import FormData from 'form-data';
 import { jwt } from '../pinata.config';
 import { createReadStream } from '../fs';
 import axios from 'axios';
+import { v4 as uuidv4 } from 'uuid'; // npm install uuid
 
 export const uploadFileToIPFS = async () => {
   const fileStream = await createReadStream();
 
   const formData = new FormData();
   formData.append('file', fileStream);
-  formData.append('name', 'MyNFT_Image');
-  formData.append('network', 'public');
+  formData.append('name', `MyNFT_Image_${uuidv4()}`);
 
   const response = await axios.post(
     'https://uploads.pinata.cloud/v3/files',

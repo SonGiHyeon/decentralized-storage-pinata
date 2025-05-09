@@ -8,13 +8,23 @@ export const uploadMetaData = async () => {
   const imageUrl = await uploadFileToIPFS();
 
   const metadata = {
-    name: '', // Todo: 원하는 이름을 넣습니다.
-    description: '', // Todo: 원하는 이름을 넣습니다.
+    name: 'The Holy Knight Jae', // Todo: 원하는 이름을 넣습니다.
+    description: "Born in a poor village, Lee Jae-myung could never tolerate injustice. Enlightened by the Holy Light, he joined the Paladins and chose the path of defending justice. Preferring the power of words over violence, he always stands with the weak against the strong. On his shield is engraved the motto: 'Injustice shall not be tolerated.'",
     image: imageUrl,
     attributes: [
       // attributes는 어떤 속성(trait_type)에 값(value)을 넣을 것인지 자신의 프로젝트에 따라서 재량것 지정합니다.
-      { trait_type: 'Rarity', value: 'Legendary' },
-      { trait_type: 'Power', value: 100 },
+      { "trait_type": "Class", "value": "Holy Paladin of Justice" },
+      { "trait_type": "Origin", "value": "Poor Village" },
+      { "trait_type": "Signature Skills", "value": "Judgment of Justice" },
+      { "trait_type": "Signature Skills", "value": "Light of the People" },
+      { "trait_type": "Signature Skills", "value": "Eyes of Truth" },
+      { "trait_type": "Signature Skills", "value": "Shield of the Commoners" },
+      { "trait_type": "Catchphrase", "value": "The people are the masters." },
+      { "trait_type": "Catchphrase", "value": "Lies collapse before the light." },
+      { "trait_type": "Catchphrase", "value": "A paladin does not remain silent." },
+      { "trait_type": "Gear", "value": "Sword of the People" },
+      { "trait_type": "Gear", "value": "Shield of Justice" },
+      { "trait_type": "Gear", "value": "Cloak of Light" }
     ],
   };
   console.log('Metadata : ', metadata);

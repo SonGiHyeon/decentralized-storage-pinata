@@ -23,19 +23,24 @@ const privateKey = process.env.PRIVATE_KEY || '';
 
 export const getSigner = () => {
   // Todo: privateKey를 이용하여 Wallet 인스턴스를 리턴합니다. - new ethers.Wallet(프라이빗 키, provider)
-
-  return;
+  const signer = new ethers.Wallet(privateKey, provider)
+  return signer;
 };
 
 export const getContract = () => {
   // Todo: DataType Contract 인스턴스를 리턴합니다. - new ethers.Contract(컨트랙트 주소, ABI, signer)
   // 이 후에 구현하는 컨트랙트 호출은 구현한 getContract를 사용합니다.
-  return;
+  const signer = getSigner()
+  const contract = new ethers.Contract(contractAddress, abi, signer)
+  return contract;
 };
 
 export const mint = async () => {
   const recipient = getSigner().address;
   const tokenUri = await uploadMetaData();
+  const contract = getContract();
+
+  const tx = await contract.mint(recipient, tokenUri);
 
   // Todo: mint 함수는 컨트랙트의 mint 함수를 이용하여 NFT를 민팅해야 합니다. (리턴할 필요는 없습니다.)
 };

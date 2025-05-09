@@ -9,10 +9,7 @@ import "@openzeppelin/contracts/token/ERC721/extensions/ERC721Enumerable.sol";
 contract MyNFT is ERC721, ERC721Enumerable, Ownable, ERC721URIStorage {
     uint256 private _tokenIds;
 
-    constructor(
-        string memory name_,
-        string memory symbol_
-    ) ERC721(name_, symbol_) Ownable(msg.sender) {}
+    constructor() ERC721("JaeNFT", "JAE") Ownable(msg.sender) {}
 
     function mint(
         address recipient,
@@ -28,6 +25,9 @@ contract MyNFT is ERC721, ERC721Enumerable, Ownable, ERC721URIStorage {
         return _tokenIds;
     }
 
+    // 🔍 Explorer 기능을 위해 totalSupply()는 ERC721Enumerable이 자동 제공
+
+    // 오버라이드들 (멀티 상속 충돌 해결)
     function supportsInterface(
         bytes4 interfaceId
     )
@@ -40,9 +40,9 @@ contract MyNFT is ERC721, ERC721Enumerable, Ownable, ERC721URIStorage {
     }
 
     function tokenURI(
-        uint256 _tokenId
+        uint256 tokenId
     ) public view override(ERC721, ERC721URIStorage) returns (string memory) {
-        return super.tokenURI(_tokenId);
+        return super.tokenURI(tokenId);
     }
 
     function _increaseBalance(

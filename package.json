@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "deploy": "npx hardhat run scripts/deploy.ts --network kaia",
+    "deploy_contract": "npx hardhat run scripts/deploy.ts --network kaia",
     "mint": "ts-node web3/ethers.ts"
   },
   "repository": {
@@ -29,6 +29,7 @@
     "axios": "^1.8.2",
     "dotenv": "^16.4.7",
     "form-data": "^4.0.2",
-    "ts-node": "^10.9.2"
+    "ts-node": "^10.9.2",
+    "uuid": "^11.1.0"
   }
 }
