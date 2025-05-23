@@ -2,19 +2,22 @@ import FormData from 'form-data';
 import { jwt } from '../pinata.config';
 import { createReadStream } from '../fs';
 import axios from 'axios';
-import { v4 as uuidv4 } from 'uuid'; // npm install uuid
+import { v4 as uuidv4 } from 'uuid';
 
 export const uploadFileToIPFS = async () => {
-  const fileStream = await createReadStream();
+  const fileStream = await createReadStream(); // public/input/image.jpg 등
 
   const formData = new FormData();
   formData.append('file', fileStream);
-  formData.append('name', `MyNFT_Image_${uuidv4()}`);
+  formData.append('pinataMetadata', JSON.stringify({
+    name: `MyNFT_Image_${uuidv4()}`
+  }));
 
   const response = await axios.post(
-    'https://uploads.pinata.cloud/v3/files',
+    'https://api.pinata.cloud/pinning/pinFileToIPFS',
     formData,
     {
+      maxBodyLength: Infinity,
       headers: {
         Authorization: `Bearer ${jwt}`,
         ...formData.getHeaders(),
@@ -22,11 +25,11 @@ export const uploadFileToIPFS = async () => {
     }
   );
 
-  console.log('이미지를 IPFS에 업로드합니다');
-  console.log(
-    'Image :',
-    `https://jade-biological-gamefowl-447.mypinata.cloud/ipfs/${response.data.data.cid}`
-  );
+  const cid = response.data.IpfsHash;
+  const gatewayUrl = `https://gateway.pinata.cloud/ipfs/${cid}`;
 
-  return `https://jade-biological-gamefowl-447.mypinata.cloud/ipfs/${response.data.data.cid}`;
+  console.log('이미지를 IPFS에 업로드합니다');
+  console.log('Image :', gatewayUrl);
+
+  return gatewayUrl;
 };
